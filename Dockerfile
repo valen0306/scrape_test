@@ -4,6 +4,17 @@ FROM python:3.11-slim-buster
 # 作業ディレクトリを設定
 WORKDIR /app
 
+# システムの依存関係をインストール（Chrome用）
+RUN apt-get update && apt-get install -y \
+    wget \
+    gnupg \
+    unzip \
+    curl \
+    chromium \
+    chromium-driver \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 # 依存関係ファイルをコンテナにコピー
 COPY requirements.txt .
 
